@@ -1,7 +1,7 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-var formidable = require('formidable');
+// var formidable = require('formidable');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 
@@ -11,6 +11,29 @@ var myEventHandler = function () {
 }
 
 http.createServer(function (req, res) {
+
+var connectHandler =  function connected(){
+	console.log("connection successful");
+
+	eventEmitter.emit('data_received');
+}
+eventEmitter.on('connection', connectHandler);
+eventEmitter.on('data_received', function(){
+	console.log('data data_received');
+});
+
+eventEmitter.emit('connection');
+console.log("program end");
+/*
+	fs.readFile('test.html', function(err, data){
+		if(err){
+			return console.error(err);
+		}
+		console.log(data.toString());
+		console.log("Program End");
+	});
+	*/
+/*	
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
     form.uploadDir="G:/NodeJS/";
@@ -31,7 +54,7 @@ http.createServer(function (req, res) {
     res.write('<input type="submit">');
     res.write('</form>');
     return res.end();
-  }
+  }*/
 }).listen(8080);
 /*
 http.createServer(function (req, res) {
