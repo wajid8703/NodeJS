@@ -17,12 +17,22 @@ var connectHandler =  function connected(){
 
 	eventEmitter.emit('data_received');
 }
+var listener2 = function(){
+	console.log('listener2');
+}
 eventEmitter.on('connection', connectHandler);
+eventEmitter.addListener('connection', listener2);
 eventEmitter.on('data_received', function(){
 	console.log('data data_received');
 });
 
-eventEmitter.emit('connection');
+//eventEmitter.emit('connection');
+console.log( __dirname );
+console.log( __filename );
+// Now call above function after 2 seconds
+// setTimeout(myEventHandler, 6000);
+// Now call above function after 2 seconds and it will repeat after each 2 sec
+// setInterval(myEventHandler, 2000);
 console.log("program end");
 /*
 	fs.readFile('test.html', function(err, data){
